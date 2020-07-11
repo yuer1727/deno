@@ -1,24 +1,19 @@
-# Introduction
+# 介绍
 
-Deno is a JavaScript/TypeScript runtime with secure defaults and a great
-developer experience.
+Deno是一个JavaScript/TypeScript带有默认安全和伟大的开发者经验的运行时。
 
-It's built on V8, Rust, and Tokio.
+Deno被构建在V8, Rust和Tokio之上。
 
-## Feature Highlights
+## 功能亮点
 
-- Secure by default. No file, network, or environment access (unless explicitly
-  enabled).
-- Supports TypeScript out of the box.
-- Ships a single executable (`deno`).
-- Has built-in utilities like a dependency inspector (`deno info`) and a code
-  formatter (`deno fmt`).
-- Has
-  [a set of reviewed (audited) standard modules](https://github.com/denoland/deno/tree/master/std)
-  that are guaranteed to work with Deno.
-- Scripts can be bundled into a single JavaScript file.
+- 默认安全。不涉及文件系统、网络或者环境变量的访问(除非显式开启)。
+- 开箱即用地支持TypeScript。
+- 提供单独的可执行文件(`deno`)。
+- 拥有许多内建工具，例如一个依赖检查器 (`deno info`) 和一个代码格式化工具 (`deno fmt`)。
+- 拥有[一系列被审核过的标准模块](https://github.com/denoland/deno/tree/master/std)与Deno一起工作。 
+- 脚本可以被捆绑到一个JavaScript文件。
 
-## Philosophy
+## Deno哲学
 
 Deno aims to be a productive and secure scripting environment for the modern
 programmer.
@@ -32,7 +27,7 @@ standard browser-compatible protocol for loading modules: URLs.
 Among other things, Deno is a great replacement for utility scripts that may
 have been historically written with bash or python.
 
-## Goals
+## 目标
 
 - Only ship a single executable (`deno`).
 - Provide Secure Defaults
@@ -46,7 +41,7 @@ have been historically written with bash or python.
 - Does not leak V8 concepts into user land.
 - Be able to serve HTTP efficiently
 
-## Comparison to Node.js
+## 与Node.js对比
 
 - Deno does not use `npm`
   - It uses modules referenced as URLs or file paths
@@ -62,7 +57,7 @@ have been historically written with bash or python.
   import * as log from "https://deno.land/std/log/mod.ts";
   ```
 
-## Other key behaviors
+## 其他关键的表现
 
 - Remote code is fetched and cached on first execution, and never updated until
   the code is run with the `--reload` flag. (So, this will still work on an
