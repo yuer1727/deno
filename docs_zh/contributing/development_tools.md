@@ -118,9 +118,9 @@ Synopsis:
   --shell   run an interactive JavaScript shell
   --module  execute a file as a JavaScript module
 
-注意：--module选项是对*.mjs文件默认开启的。
+Note: the --module option is implicitly enabled for *.mjs files.
 
-接下来是支持的选项语法(-' 和 '--'都可以)：
+The following syntax for options is accepted (both '-' and '--' are ok):
   --flag        (bool flags only)
   --no-flag     (bool flags only)
   --flag=value  (non-bool flags only, no spaces around '=')
