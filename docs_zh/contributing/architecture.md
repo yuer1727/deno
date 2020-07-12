@@ -1,6 +1,6 @@
-## Internal details
+## 内部细节
 
-### Deno and Linux analogy
+### Deno比喻Linux
 
 |                       **Linux** | **Deno**                                     |
 | ------------------------------: | :------------------------------------------- |
@@ -12,12 +12,9 @@
 |                 /proc/\$\$/stat | [Deno.metrics()](architecture#metrics)       |
 |                       man pages | deno types                                   |
 
-#### Resources
+#### 资源
 
-Resources (AKA `rid`) are Deno's version of file descriptors. They are integer
-values used to refer to open files, sockets, and other concepts. For testing it
-would be good to be able to query the system for how many open resources there
-are.
+资源又称`rid`，是Deno版的文件描述符。他们被用来引用打开的文件、套接字和其它概念的整型值。它可以查询系统打开了多少资源，对测试非常有用。
 
 ```ts
 console.log(Deno.resources());
@@ -27,9 +24,9 @@ console.log(Deno.resources());
 // { 1: "stdout", 2: "stderr" }
 ```
 
-#### Metrics
+#### 指标
 
-Metrics is Deno's internal counter for various statistics.
+指标是Deno的各种统计数据的内部计数器。
 
 ```shell
 > console.table(Deno.metrics())
@@ -44,6 +41,6 @@ Metrics is Deno's internal counter for various statistics.
 └──────────────────┴────────┘
 ```
 
-### Schematic diagram
+### 原理示意图
 
 ![architectural schematic](https://deno.land/images/schematic_v0.2.png)

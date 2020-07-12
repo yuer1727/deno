@@ -1,7 +1,6 @@
-# Built-in tooling
+# 内建工具
 
-Deno provides some built in tooling that is useful when working with JavaScript
-and TypeScript:
+Deno提供一个内建工具，这些工具在使用JavaScript和TypeScript时非常有用：
 
 <!-- prettier-ignore-start -->
 <!-- prettier incorrectly moves the coming soon links to new lines -->

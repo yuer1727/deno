@@ -1,76 +1,75 @@
-## Testing and Tools
+## 测试和工具
 
-### Tests
+### 测试
 
-Test `deno`:
+测试 `deno`:
 
 ```shell
-# Run the whole suite:
+# 跑整个套件：
 cargo test
 
-# Only test cli/js/:
+# 只测试cli/js/:
 cargo test js_unit_tests
 ```
 
-Test `std/`:
+测试 `std/`:
 
 ```shell
 cargo test std_tests
 ```
 
-### Lint and format
+### 代码检查和格式化
 
-Lint the code:
+检查代码:
 
 ```shell
 ./tools/lint.py
 ```
 
-Format the code:
+格式化代码:
 
 ```shell
 ./tools/format.py
 ```
 
-### Profiling
+### 性能分析
 
-To start profiling,
+开始性能分析：
 
 ```sh
-# Make sure we're only building release.
-# Build deno and V8's d8.
+# 确保我们构建的是release版本。
+# 构建Deno和V8的d8。
 ninja -C target/release d8
 
-# Start the program we want to benchmark with --prof
+# 对我们想要进行基础测试的程序，启动时带上--prof
 ./target/release/deno run tests/http_bench.ts --allow-net --v8-flags=--prof &
 
-# Exercise it.
+# 练习。
 third_party/wrk/linux/wrk http://localhost:4500/
 kill `pgrep deno`
 ```
 
-V8 will write a file in the current directory that looks like this:
-`isolate-0x7fad98242400-v8.log`. To examine this file:
+V8将会在当前目录写一个文件，例如：
+`isolate-0x7fad98242400-v8.log`. 去测试这个文件：
 
 ```sh
 D8_PATH=target/release/ ./third_party/v8/tools/linux-tick-processor
 isolate-0x7fad98242400-v8.log > prof.log
-# on macOS, use ./third_party/v8/tools/mac-tick-processor instead
+# 在macOS上,使用 ./third_party/v8/tools/mac-tick-processor 代替
 ```
 
-`prof.log` will contain information about tick distribution of different calls.
+`prof.log` 包含了不同调用的tick分布信息。
 
-To view the log with Web UI, generate JSON file of the log:
+用 Web UI 查看这个日志，生成这个日志的 JSON 文件：
 
 ```sh
 D8_PATH=target/release/ ./third_party/v8/tools/linux-tick-processor
 isolate-0x7fad98242400-v8.log --preprocess > prof.json
 ```
 
-Open `third_party/v8/tools/profview/index.html` in your browser, and select
-`prof.json` to view the distribution graphically.
+在你的浏览器中打开`third_party/v8/tools/profview/index.html`, 然后选择`prof.json`查看分布图。
 
-Useful V8 flags during profiling:
+在性能分析时有用的 V8 选项：
 
 - --prof
 - --log-internal-timer-events
@@ -79,21 +78,20 @@ Useful V8 flags during profiling:
 - --log-source-code
 - --track-gc-object-stats
 
-To learn more about `d8` and profiling, check out the following links:
+有关 d8 和性能分析的更多信息，请查阅以下链接：
 
 - [https://v8.dev/docs/d8](https://v8.dev/docs/d8)
 - [https://v8.dev/docs/profile](https://v8.dev/docs/profile)
 
-### Debugging with LLDB
+### 使用LLDB调试
 
-To debug the deno binary, we can use `rust-lldb`. It should come with `rustc`
-and is a wrapper around LLDB.
+为了调试deno的二进制文件，我们可以使用`rust-lldb`。它应该来自`rustc`且是LLDB的封装。
 
 ```shell
 $ rust-lldb -- ./target/debug/deno run --allow-net tests/http_bench.ts
-# On macOS, you might get warnings like
+# 在macOS上, 你可能收到像这样的waring
 # `ImportError: cannot import name _remove_dead_weakref`
-# In that case, use system python by setting PATH, e.g.
+# 在这种情况下, 设置PATH以使用系统python, 例如
 # PATH=/System/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH
 (lldb) command script import "/Users/kevinqian/.rustup/toolchains/1.36.0-x86_64-apple-darwin/lib/rustlib/etc/lldb_rust_formatters.py"
 (lldb) type summary add --no-value --python-function lldb_rust_formatters.print_val -x ".*" --category Rust
@@ -105,9 +103,9 @@ Current executable set to '../deno/target/debug/deno' (x86_64).
 (lldb) r
 ```
 
-### V8 flags
+### V8选项
 
-V8 has many many internal command-line flags.
+V8有许多内置的命令行选项。
 
 ```shell
 $ deno run --v8-flags=--help _
@@ -120,9 +118,9 @@ Synopsis:
   --shell   run an interactive JavaScript shell
   --module  execute a file as a JavaScript module
 
-Note: the --module option is implicitly enabled for *.mjs files.
+注意：--module选项是对*.mjs文件默认开启的。
 
-The following syntax for options is accepted (both '-' and '--' are ok):
+接下来是支持的选项语法(-' 和 '--'都可以)：
   --flag        (bool flags only)
   --no-flag     (bool flags only)
   --flag=value  (non-bool flags only, no spaces around '=')
@@ -1088,19 +1086,19 @@ Options:
         type: bool  default: false
 ```
 
-Particularly useful ones:
+特别有用的一个:
 
 ```
 --async-stack-trace
 ```
 
-### Continuous Benchmarks
+### 持续的基准测试
 
-See our benchmarks [over here](https://deno.land/benchmarks)
+看看我们的基准测试 [这里](https://deno.land/benchmarks)
 
-The benchmark chart supposes
-https://github.com/denoland/benchmark_data/blob/gh-pages/data.json has the type
-`BenchmarkData[]` where `BenchmarkData` is defined like the below:
+基准测试图表假设是
+https://github.com/denoland/benchmark_data/blob/gh-pages/data.json 有
+`BenchmarkData[]`类型，其中 `BenchmarkData` 的定义如下:
 
 ```ts
 interface ExecTimeData {
